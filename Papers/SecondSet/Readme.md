@@ -44,7 +44,11 @@ Performed better than runs of ImageCLEF 2019 participants
 # TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
 
 CNN - Convlutional NN
+
 RNN - Recurrent NN -- low memmory -- can create loops
+
 LSTM - Long Short Term Memmory -- Contatins memmory cell -- better than RNN
+
 Bi-LSTM - Bidirectional LSTM -- more better
+
 VGG - Visual Geometry Group - standard deep CNN
