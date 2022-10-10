@@ -23,3 +23,28 @@ of question features on the classification results.
 Achives state-of-art result of 3 VQA-Med(ImageCLEF2018,ImageCLEF2019,VQA-RAD) datasets..main metric score excees by 0.2%,1.4%,1.1%
 
 # Hybrid deep learning model for answering visual medical questions
+
+The classification of medical questions based on a BERT model
+Extraction  of  medical  image  features  by  a  hybrid  deep  learning  model of VGG and ResNet
+Text  feature extraction using a Bi-LSTM mode 
+By combining features extracted on classifier based on softmax layer we get most accuarate answer
+
+on using various optimistaion algorith on ImageCLEF2019 dataset -- Adam and SGD performed better.
+
+# Optimal Deep Neural Network-Based Model for Answering Visual Medical Question
+
+The classification of medical questions based on a BERT model
+EfficientNet as a deep learning model to extract visual features
+Text Feature extracted using Bi-LSTM
+Combined features using an attention model
+we used an adaptive genetic algorithm to determine the optimal deep learning parameters
+
+Performed better than runs of ImageCLEF 2019 participants
+
+# TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
+
+CNN - Convlutional NN
+RNN - Recurrent NN -- low memmory -- can create loops
+LSTM - Long Short Term Memmory -- Contatins memmory cell -- better than RNN
+Bi-LSTM - Bidirectional LSTM -- more better
+VGG - Visual Geometry Group - standard deep CNN
