@@ -43,8 +43,19 @@ Performed better than runs of ImageCLEF 2019 participants
 
 # TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
 
+Medical Images may restrict to specific part of human body which result in type effect.
 
+By identifying Type of image we can sucessfully exploits the charcterstics of image.
+Our image feature extraction module now extract one more thing called type point.
+We joins textual feaures with type point embeddings and do VQA.
+Improves the ability of semantic alignment between different modalities and further enhance the applicability of the fusion method for Med-VQA.
 
+Achives state-of-art with VQA-RAD
+
+# VQAMixup_perprint
+
+VGG16 (pre-trained on ImageNet) as the visual/image model (IM) 
+Single layer GRU with word embedding as the question/text model (TM).
 
 ### ........
 
