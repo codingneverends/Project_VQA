@@ -43,6 +43,11 @@ Performed better than runs of ImageCLEF 2019 participants
 
 # TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
 
+
+
+
+### ........
+
 CNN - Convlutional NN
 
 RNN - Recurrent NN -- low memmory -- can create loops
