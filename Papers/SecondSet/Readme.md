@@ -22,6 +22,8 @@ of question features on the classification results.
 
 Achives state-of-art result of 3 VQA-Med(ImageCLEF2018,ImageCLEF2019,VQA-RAD) datasets..main metric score excees by 0.2%,1.4%,1.1%
 
+In  the  first  branch  of  the  BPI-MVQA  model,  image  features  and  text  features  are  simply  connected  and  then  input  into  the  transformer  structure  model, which  indicates  that  we  still  lack  adequate  multi-modal  feature  fusion 
+
 # Hybrid deep learning model for answering visual medical questions
 
 The classification of medical questions based on a BERT model
@@ -31,6 +33,8 @@ By combining features extracted on classifier based on softmax layer we get most
 
 on using various optimistaion algorith on ImageCLEF2019 dataset -- Adam and SGD performed better.
 
+Better question classification system needed. Abnormality question answering poorly. 
+
 # Optimal Deep Neural Network-Based Model for Answering Visual Medical Question
 
 The classification of medical questions based on a BERT model
@@ -39,7 +43,9 @@ Text Feature extracted using Bi-LSTM
 Combined features using an attention model
 we used an adaptive genetic algorithm to determine the optimal deep learning parameters
 
-Performed better than runs of ImageCLEF 2019 participants
+Performed better than runs of ImageCLEF 2019 participants, Very High accuraccy rate.
+
+Information provided in the questions and the corresponding images are not always sufficient to predict the right answer, and answering the questions often requires external knowledge resources.
 
 # TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
 
@@ -50,7 +56,9 @@ Our image feature extraction module now extract one more thing called type point
 We joins textual feaures with type point embeddings and do VQA.
 Improves the ability of semantic alignment between different modalities and further enhance the applicability of the fusion method for Med-VQA.
 
-Achives state-of-art with VQA-RAD
+Achives state-of-art with VQA-RAD , Very high accuracy
+
+Restriced to speicfic class , not a coplete solution for VQA
 
 # VQAMixup_perprint
 
