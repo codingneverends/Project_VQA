@@ -54,8 +54,8 @@ Achives state-of-art with VQA-RAD
 
 # VQAMixup_perprint
 
-VGG16 (pre-trained on ImageNet) as the visual/image model (IM) 
-Single layer GRU with word embedding as the question/text model (TM).
+VGG16 (pre-trained on ImageNet) as the visual/image model (IM)
+<br/>Single layer GRU with word embedding as the question/text model (TM).
 
 ### ........
 
