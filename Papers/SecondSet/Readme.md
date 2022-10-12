@@ -67,6 +67,8 @@ Single layer GRU with word embedding as the question/text model (TM).
 
 ### ........
 
+BERT -  Bidirectional Encoder Representations from Transformers
+
 CNN - Convlutional NN
 
 RNN - Recurrent NN -- low memmory -- can create loops
