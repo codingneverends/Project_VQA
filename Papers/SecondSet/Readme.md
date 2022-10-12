@@ -76,3 +76,38 @@ LSTM - Long Short Term Memmory -- Contatins memmory cell -- better than RNN
 Bi-LSTM - Bidirectional LSTM -- more better
 
 VGG - Visual Geometry Group - standard deep CNN
+
+# BPI‑MVQA: a bi‑branch model for medical visual question answering
+
+CNN+RNN on Image
+three-layer  word  embedding  based  on  a  biomedical  corpus on Text
+
+Achives state-of-art result of 3 VQA-Med(ImageCLEF2018,ImageCLEF2019,VQA-RAD) datasets..main metric score excees by 0.2%,1.4%,1.1%
+
+In  the  first  branch  of  the  BPI-MVQA  model,  image  features  and  text  features  are  simply  connected  and  then  input  into  the  transformer  structure  model, which  indicates  that  we  still  lack  adequate  multi-modal  feature  fusion 
+
+# Hybrid deep learning model for answering visual medical questions
+
+hybrid  deep  learning  model of VGG and ResNet on Image
+BERT model on Question and feature extraction using a Bi-LSTM mode 
+
+on using various optimistaion algorith on ImageCLEF2019 dataset -- Adam and SGD performed better.
+
+Better question classification system needed. Abnormality question answering poorly. 
+
+# Optimal Deep Neural Network-Based Model for Answering Visual Medical Question
+
+BERT model on Question and feature extraction using a Bi-LSTM mode 
+EfficientNet as a deep learning model to extract visual features
+
+Performed better than runs of ImageCLEF 2019 participants, Very High accuraccy rate.
+
+Information provided in the questions and the corresponding images are not always sufficient to predict the right answer, and answering the questions often requires external knowledge resources.
+
+# TYPE-AWARE MEDICAL VISUAL QUESTION ANSWERING
+
+TI,TQ(Type Image,Type Question) modules exploits charctertics of input data 
+
+Achives state-of-art with VQA-RAD , Very high accuracy
+
+Restriced to speicfic class , not a coplete solution for VQA
