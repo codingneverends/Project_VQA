@@ -21,6 +21,7 @@ VGG - Visual Geometry Group - standard deep CNN
 ### How VQA Done!
 
     1.BERT Model on question.
+        4 categories of questions plane,modality,organ,abnormality
     2.Image Feature extraction using CNN,EfficientNet.
     3.Question Feature extraction using RNN/LSTM/Bi-LSTM.
     4.Fuse Image and Question Features to obtain answer using ML algos(Genetic Algo,DNN,...).
