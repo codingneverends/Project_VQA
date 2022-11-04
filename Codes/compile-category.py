@@ -59,7 +59,7 @@ for text_batch, label_batch in train_dataset.take(1):
       if label[j]==1:
         print(f'Label : {label} ({rev_content_types[j]})')
 
-tfhub_handle_encoder = 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-512_A-8/1'
+tfhub_handle_encoder = 'https://tfhub.dev/tensorflow/small_bert/bert_en_uncased_L-2_H-768_A-12/1'
 tfhub_handle_preprocess = 'https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3'
 
 print(f'BERT model selected           : {tfhub_handle_encoder}')
