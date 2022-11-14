@@ -1,3 +1,6 @@
 DataSet
 models
 models-compiled
+__Test
+Codes/__pycache__
+Codes/modules/__pycache__
