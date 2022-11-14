@@ -1,0 +1,21 @@
+Bi-Branch Model
+
+    First Branch - Feature Fusion Model
+    Second Brach - Image Retrival Model
+
+Feature Fusion Model
+
+    Question are of 10 categories
+    Question classified to 10 categories initially
+    Question Feature extraction LSTM
+    Image feature extraction using CNN
+    Question can be open-ended or close-ended
+    Seperate model for both
+    Image features and Question Features fused(embedded) together and trained
+    Classifer will give output
+
+Image Retrival Model
+
+    Labelled with answers of trained dataset.
+    Find most suitable images matching to the input.
+    optimal output will be genarated from that suitable images answers.
