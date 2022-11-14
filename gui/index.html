@@ -92,7 +92,9 @@
                     console.log("Res : " + xhr.response)
                     data = JSON.parse(xhr.response);
                     console.log(data);
-                    document.getElementById("value").innerHTML = `Content Type : ${data.content_type}<BR>Question Type : ${data.question_type}`
+                    document.getElementById("value").innerHTML = `Content Type : ${data.content_type}
+                                                                <BR>Question Type : ${data.question_type}
+                                                                <BR>Modality : ${data.modality}`;
                 }
             }
         }
