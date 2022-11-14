@@ -85,10 +85,11 @@
             var xhr = new XMLHttpRequest();
             xhr.open("POST", yourUrl, true);
             xhr.send(data);
+            let answerElem = document.getElementById("answer-container");
+            answerElem.style.display = "block";
+            document.getElementById("value").innerHTML = "Processing... Please Wait ";
             xhr.onreadystatechange = (e) => {
                 if (xhr.readyState == 4) {
-                    let answerElem = document.getElementById("answer-container");
-                    answerElem.style.display = "block";
                     console.log("Res : " + xhr.response)
                     data = JSON.parse(xhr.response);
                     console.log(data);
