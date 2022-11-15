@@ -14,6 +14,8 @@ content_types = {'Plane': 0, 'Size': 1, 'Abnormality': 2, 'Quantity': 3, 'Positi
 rev_content_types = {0: 'Plane', 1: 'Size', 2: 'Abnormality', 3: 'Quantity', 4: 'Position', 5: 'Color', 6: 'Organ', 7: 'KG', 8: 'Modality', 9: 'Shape'}
 
 def print_my_result(outputs,inputs, results):
+  qns=[0,0,0,0,0,0,0,0,0,0]
+  crcts = [0,0,0,0,0,0,0,0,0,0]
   results=tf.sigmoid(results)
   j=0
   val=0
@@ -21,17 +23,24 @@ def print_my_result(outputs,inputs, results):
   for result in results:
     result=results[j]
     output=outputs[j]
+    qns[content_types[output]]+=1
     index=0
     for i in range(10):
       if result[i]>result[index]:
         index=i
     j=j+1
     if rev_content_types[index]==output:
+      crcts[content_types[output]]+=1
       val=val+1
+    else:
+      print(str(result)+" : "+output+" : "+inputs[j])
     tot=tot+1
+  _val = [x/y for x,y in zip(crcts,qns)]
+  for i in range(10):
+    print(rev_content_types[i]+" : "+str(_val[i]*100)+"%")
   print("Accuracy : ",val/tot)
 
-valid_qns = open('../Dataset/Slake/validate.json',encoding="utf8")
+valid_qns = open('../Dataset/Slake/train.json',encoding="utf8")
 valid_qns = json.load(valid_qns)
 print(len(valid_qns))
 valid_qns_en = [x for x in valid_qns if x['q_lang'] == 'en']
