@@ -5,3 +5,6 @@ __Test
 Codes/__pycache__
 Codes/modules/__pycache__
 Codes/modules/tmp/*
+Codes/qn_vectors/glove.6B.300d.word2vec.txt
+Codes/qn_vectors/glove.6B.300d.word2vec.txt
+Glove

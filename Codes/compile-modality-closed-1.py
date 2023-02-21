@@ -9,6 +9,10 @@ from tensorflow.keras import layers
 from tensorflow.keras.models import Sequential
 from keras.layers import Dense, Dropout, Embedding, LSTM, GlobalMaxPooling1D, SpatialDropout1D,Flatten,Concatenate
 from tensorflow.keras import Model
+from qn_vectors.readvec import getvec
+
+from gensim.models import KeyedVectors
+wv_skipgram = KeyedVectors.load("qn_vectors/skipgram-modality-closed.model", mmap='r')
 
 train_qns = open('../Dataset/Slake/train.json',encoding="utf8")
 test_qns = open('../Dataset/Slake/test.json',encoding="utf8")
@@ -22,49 +26,65 @@ train_qns_en = [x for x in train_qns if x['q_lang'] == 'en' and (x['answer']=='Y
 print(len(train_qns_en))
 test_qns_en = [x for x in test_qns if x['q_lang'] == 'en' and  (x['answer']=='Yes' or x['answer']=='No')  and x['content_type']=='Modality']
 print(len(test_qns_en))
-
-train_X = [[x["img_name"],x['question']] for x in train_qns_en]
+from nltk.tokenize import word_tokenize
+vec = getvec('qn_vectors/modality.vec')
+def pre_process(qn):
+    ar = [[0 for _j in range(100)] for _i in range(40)]
+    tokens = word_tokenize(qn.lower())
+    for i in range(len(tokens)):
+        if tokens[i] in vec:
+            for j in range(len(vec)):
+                if tokens[i]==vec[j]:
+                    try:
+                      ar[j]=wv_skipgram.wv[vec[j]]
+                    except:
+                      pass
+    return np.array(ar)
+train_X = [[x["img_name"],pre_process(x['question'])] for x in train_qns_en]
 train_Y = [x["answer"] for x in train_qns_en]
-test_X = [[x["img_name"],x['question']] for x in test_qns_en]
+test_X = [[x["img_name"],pre_process(x['question'])] for x in test_qns_en]
 test_Y = [x["answer"] for x in test_qns_en]
-
-print(train_X[23],train_Y[23])
 
 train_X=[["../Dataset/Slake/imgs/"+x[0],x[1]] for x in train_X]
 test_X=[["../Dataset/Slake/imgs/"+x[0],x[1]] for x in test_X]
 
 print(train_X[23],train_Y[23])
 
-#PIL.Image.open(str(train_X[23][0]))
 def yesno(val):
     if val.lower()=="yes":
-        return 1
-    return 0
+        return [1,0]
+    return [0,1]
 
 train_Y=[yesno(x) for x in train_Y]
 test_Y=[yesno(x) for x in test_Y]
+train_Y = tf.convert_to_tensor(np.array(train_Y))
+test_Y = tf.convert_to_tensor(np.array(test_Y))
 
 img_height = 180
 img_width = 180
+train_X_img = [tf.keras.utils.img_to_array(tf.keras.utils.load_img(x[0],target_size=(img_width,img_height))) for x in train_X]
+test_X_img = [tf.keras.utils.img_to_array(tf.keras.utils.load_img(x[0],target_size=(img_width,img_height))) for x in test_X]
 train_X_qn = [x[1] for x in train_X]
 test_X_qn = [x[1] for x in test_X]
-train_X = [tf.keras.utils.img_to_array(tf.keras.utils.load_img(x[0],target_size=(img_width,img_height))) for x in train_X]
-test_X = [tf.keras.utils.img_to_array(tf.keras.utils.load_img(x[0],target_size=(img_width,img_height))) for x in test_X]
+train_X_qn = tf.convert_to_tensor(np.array(train_X_qn))
+test_X_qn = tf.convert_to_tensor(np.array(test_X_qn))
+train_X_img = tf.convert_to_tensor(np.array(train_X_img))
+test_X_img = tf.convert_to_tensor(np.array(test_X_img))
+print(train_X_qn.shape)
+print(train_X_img.shape)
 
-plt.figure(figsize=(10, 10))
-plt.imshow(tf.keras.utils.array_to_img(train_X[23]))
-
+'''
 batch_size=42
-train_dataset = tf.data.Dataset.from_tensor_slices((train_X,train_X_qn, train_Y)).batch(batch_size)
-test_dataset = tf.data.Dataset.from_tensor_slices((test_X,test_X_qn, test_Y)).batch(batch_size)
-
+train_dataset = tf.data.Dataset.from_tensor_slices((train_X, train_Y)).batch(batch_size)
+test_dataset = tf.data.Dataset.from_tensor_slices((test_X, test_Y)).batch(batch_size)
+print(train_dataset)
 first_image=train_dataset.take(1)
 for image,qn,feature in first_image:
     # Notice the pixel values are now in `[0,1]`.
     image=image[0]
     print(np.min(image), np.max(image))
     print(qn,feature)
-
+'''
 num_classes = 3
 img_model = Sequential([
   layers.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
@@ -78,7 +98,7 @@ img_model = Sequential([
 ])
 
 qn_model = Sequential([
-  layers.LSTM(512, dropout = 0.3,return_sequences = True,input_shape = (21,300)),
+  layers.LSTM(512, dropout = 0.3,return_sequences = True,input_shape = (40,100)),
   layers.Dense(512, activation = 'relu'),
   layers.Dropout(0.3),
   layers.Dense(512, activation = 'relu'),
@@ -97,21 +117,17 @@ model = Sequential([
 ])
 '''
 from keras.utils.vis_utils import plot_model
-model = Model([qn_model.input,img_model.input],[out])
+model = Model([img_model.input,qn_model.input],[out])
 plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
 model.compile(optimizer='adam',loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),metrics=['accuracy'])
 
 model.summary()
 
-epochs=10
-history = model.fit(
-    train_dataset,
-    validation_data=test_dataset,
-    epochs=epochs
-)
+epochs=30
+history = model.fit([train_X_img,train_X_qn],train_Y,epochs = epochs,batch_size=16,verbose=1)
 
-loss, accuracy = model.evaluate(test_dataset)
+loss, accuracy = model.evaluate([test_X_img,test_X_qn],test_Y)
 
 print(f'Loss: {loss}')
 print(f'Accuracy: {accuracy}')
@@ -122,7 +138,7 @@ model.save(saved_model_path, include_optimizer=False)
 
 '''
 dataset_name = 'slake-test-img'
-saved_model_path = '/content/drive/My Drive/mvqa/models/{}_modalityclassifier'.format(dataset_name.replace('/', '_'))
+saved_model_path = '/content/drive/My Drive/mvqa/models/{}_modalityclassifier_closed'.format(dataset_name.replace('/', '_'))
 reloaded_model = tf.saved_model.load(saved_model_path)
 
 ###Reload Trained model and validating
