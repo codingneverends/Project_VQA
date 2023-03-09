@@ -12,8 +12,9 @@ from tensorflow.keras import Model
 from qn_vectors.readvec import getvec
 
 from gensim.models import KeyedVectors
-wv_skipgram = KeyedVectors.load("qn_vectors/skipgram-modality-closed.model", mmap='r')
-
+wv_skipgram = KeyedVectors.load("qn_vectors/cbow-modality-closed.model", mmap='r')
+#SkipGram - 60%
+#cbow - 60%
 train_qns = open('../Dataset/Slake/train.json',encoding="utf8")
 test_qns = open('../Dataset/Slake/test.json',encoding="utf8")
 
