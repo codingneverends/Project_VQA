@@ -1,0 +1,10 @@
+Question features are extracted using GloVe word embeddings. GloVe word
+embeddings converts each word into a 100-element vector. The Euclidean
+distance between each vector is a good measure for the semantic similarity
+between two words.
+The questions are first passed through a tokenizer to obtain an encoded
+sequence for each question. Each word in the question is given an encoding
+by the tokenizer, which is an integer. The questions are then padded using
+zeros to obtain vectors of the same size. The size of the padded and encoded
+questions we have used is 16 since that is the maximum length of a question
+in the training set
