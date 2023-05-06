@@ -19,12 +19,12 @@ Clone Repo
 Dataset should be downloaded manually[path Dataset/Slake].
 Glove should be downloaded into Glove directory.
 
-    To train model,run
+### To train model,run
 
-        test_close.py
-        test_open.py
+    test_close.py
+    test_open.py
     
-    To check validity,run
+### To check validity,run
 
-        test_close_valid.py
-        test_open_valid.py
+    test_close_valid.py
+    test_open_valid.py
