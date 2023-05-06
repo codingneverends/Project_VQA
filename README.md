@@ -32,7 +32,7 @@ Glove should be downloaded into Glove directory.
 ### Some Screenshots
 
 <p align="center">
-  <img src="TempFiles/backend.PNG" width="350">
-  <img src="TempFiles/Close_modality.PNG" width="350">
-  <img src="TempFiles/Open_size.PNG" width="350">
+  <img src="TempFiles/Close_modality.PNG" width="350" style="margin:10px">
+  <img src="TempFiles/Open_size.PNG" width="350" style="margin:10px"><BR>
+  <img src="TempFiles/backend.PNG" width="350" style="margin:10px">
 </p>
