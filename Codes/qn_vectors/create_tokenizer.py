@@ -3,8 +3,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-def extract_question_features(questions, num_words=5000, max_sequence_length=100):
-    tokenizer = Tokenizer(num_words=num_words)
+def extract_question_features(questions, num_words=2000, max_sequence_length=100):
+    tokenizer = Tokenizer(num_words=num_words, oov_token="<OOV>")
     tokenizer.fit_on_texts(questions)
     sequences = tokenizer.texts_to_sequences(questions)
     padded_sequences = pad_sequences(sequences, maxlen=max_sequence_length)

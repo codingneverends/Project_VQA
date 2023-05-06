@@ -1,10 +1,24 @@
-Question features are extracted using GloVe word embeddings. GloVe word
-embeddings converts each word into a 100-element vector. The Euclidean
-distance between each vector is a good measure for the semantic similarity
-between two words.
-The questions are first passed through a tokenizer to obtain an encoded
-sequence for each question. Each word in the question is given an encoding
-by the tokenizer, which is an integer. The questions are then padded using
-zeros to obtain vectors of the same size. The size of the padded and encoded
-questions we have used is 16 since that is the maximum length of a question
-in the training set
+OPEN
+
+Acurracy of Size :  93.9%
+Acurracy of Modality :  76.7%
+Acurracy of Color :  62.1%
+Acurracy of Shape :  72.7%
+Acurracy of Quantity :  55.4%
+Acurracy of Plane :  68.6%
+
+Overall Acurracy :  70.9%
+
+CLOSE
+
+Acurracy of Organ :  52.7%
+Acurracy of Abnormality :  64.8%
+Acurracy of Plane :  63.2%
+Acurracy of Modality :  66.7%
+Acurracy of Position :  35.7%
+No data to valid in  Quantity
+No data to valid in  Shape
+No data to valid in  Color
+No data to valid in  Size
+
+Overall Acurracy :  57.2%

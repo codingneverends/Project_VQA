@@ -69,5 +69,12 @@ def yesno(val):
 
 # Train the model
 labels = np.array([yesno(x['answer']) for x in train_qns])
-model.fit([image_data, padded_sequences], labels, epochs=10, batch_size=8)
-model.save('glove-img', include_optimizer=False)
+#model.fit([image_data, padded_sequences], labels, epochs=10, batch_size=8)
+
+
+model = tf.saved_model.load('glove-img')
+res = model([image_data,padded_sequences])
+print(res)
+#loss, accuracy = model.evaluate([image_data, padded_sequences],labels)
+#print(loss,accuracy)
+#model.save('glove-img', include_optimizer=False)

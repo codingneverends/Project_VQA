@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewpor" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<link rel="stylesheet" href="../static/css/style.css">
+
+<body>
+
+    <div class="header">
+        MVQA
+    </div>
+    <div class="line"></div>
+
+    <div class="formbold-main-wrapper">
+        <div class="formbold-form-wrapper">
+            <div class="mb-6 pt-4">
+
+                <label class="formbold-form-label formbold-form-label-2">
+                  Question
+                </label>
+
+                <div class="formbold-mb-5 formbold-file-input-q">
+                    <input type="text" id="qn" placeholder="Type Question..">
+                </div>
+
+
+                <label class="formbold-form-label formbold-form-label-2 flex-x">
+                  <div>Image</div>
+                  <i class="fa fa-times-circle" id="closeimg" onclick="closeimg()"></i>
+                </label>
+
+                <div class="formbold-mb-5 formbold-file-input" id="drop_zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+                    <input type="file" accept="image/*" name="file" id="file" onchange="loadFile(event)" />
+                    <label for="file" id="inputimg">
+                    <div>
+                      <span class="formbold-drop-file"> Drop files here </span>
+                      <span class="formbold-or"> Or </span>
+                      <span class="formbold-browse"> Browse </span>
+                    </div>
+                  </label>
+                </div>
+            </div>
+            <div id="preview-image-container">
+                <img id="preview-image" src="" alt="imagehere">
+            </div>
+
+            <button class="formbold-btn w-full" onclick="ViewResult()">View Result</button>
+
+            <div id="answer-container" class="feature feature-four">
+                <h2 class="feature__title">Answer</h2>
+                <p class="feature__desc" id="value"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let latestloadedfile = null;
+        var loadFile = function(event) {
+            latestloadedfile = event.target.files[0];
+            // set preview image to be visible
+            let previewImageElem = document.getElementById("preview-image-container");
+            previewImageElem.style.display = "flex";
+
+            var output = document.getElementById('preview-image');
+            output.src = URL.createObjectURL(latestloadedfile);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+            document.getElementById("inputimg").style.display = "none";
+            document.getElementById("closeimg").style.display = "block";
+        };
+
+        function closeimg() {
+            document.getElementById("inputimg").style.display = "block";
+            document.getElementById("closeimg").style.display = "none";
+            let answerElem = document.getElementById("answer-container");
+            answerElem.style.display = "none";
+            let previewImageElem = document.getElementById("preview-image-container");
+            previewImageElem.style.display = "none";
+        }
+
+        function ViewResult() {
+            let yourUrl = "http://127.0.0.1:1212/getresult";
+            const _image = latestloadedfile;
+            const qn = document.getElementById("qn").value;
+            var data = new FormData();
+            data.append('image', _image);
+            data.append('qn', qn);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", yourUrl, true);
+            xhr.send(data);
+            let answerElem = document.getElementById("answer-container");
+            answerElem.style.display = "block";
+            document.getElementById("value").innerHTML = "Processing... Please Wait ";
+            xhr.onreadystatechange = (e) => {
+                if (xhr.readyState == 4) {
+                    console.log("Res : " + xhr.response)
+                    data = JSON.parse(xhr.response);
+                    console.log(data);
+                    document.getElementById("value").innerHTML = `${data.answer}<BR><BR>
+                                                                <extra>Question Type : ${data.question_type}</extra><BR>
+                                                                <extra>Content Type : ${data.content_type}</extra><BR>`;
+                }
+            }
+        }
+
+        function dragOverHandler(ev) {
+            console.log('File(s) in drop zone');
+
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+        }
+
+        function dropHandler(ev) {
+            console.log('File(s) dropped');
+            document.getElementById("inputimg").style.display = "none";
+            document.getElementById("closeimg").style.display = "block";
+            // Prevent default behavior (Prevent file from being opened)
+            ev.preventDefault();
+
+            if (ev.dataTransfer.items) {
+                // Use DataTransferItemList interface to access the file(s)
+                [...ev.dataTransfer.items].forEach((item, i) => {
+                    // If dropped items aren't files, reject them
+                    if (item.kind === 'file') {
+                        const file = item.getAsFile();
+                        console.log(`… file[${i}].name = ${file.name}`);
+                        let previewImageElem = document.getElementById("preview-image-container");
+                        previewImageElem.style.display = "flex";
+                        var output = document.getElementById('preview-image');
+                        output.src = URL.createObjectURL(file);
+                        latestloadedfile = file;
+                        output.onload = function() {
+                            URL.revokeObjectURL(output.src) // free memory
+                        }
+                    }
+                });
+            } else {
+                // Use DataTransfer interface to access the file(s)
+                [...ev.dataTransfer.files].forEach((file, i) => {
+                    console.log(`… file[${i}].name = ${file.name}`);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

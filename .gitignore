@@ -7,4 +7,6 @@ Codes/modules/__pycache__
 Codes/modules/tmp/*
 Codes/qn_vectors/glove.6B.300d.word2vec.txt
 Codes/qn_vectors/glove.6B.300d.word2vec.txt
-Glove
+Glove/glove*
+Glove/__pycache__
+zzz.txt
