@@ -28,3 +28,11 @@ Glove should be downloaded into Glove directory.
 
     test_close_valid.py
     test_open_valid.py
+
+### Some Screenshots
+
+<p align="center">
+  <img src="TempFiles/backend.PNG" width="350">
+  <img src="TempFiles/Close_modality.PNG" width="350">
+  <img src="TempFiles/Open_size.PNG" width="350">
+</p>
