@@ -36,3 +36,7 @@ Glove should be downloaded into Glove directory.
   <img src="TempFiles/Open_size.PNG" width="350" style="margin:10px"><BR>
   <img src="TempFiles/backend.PNG" width="350" style="margin:10px">
 </p>
+
+### Final Report
+
+Final report can be seen <a href='https://github.com/codingneverends/Project_VQA/tree/main/FinalReport'>here</a>
