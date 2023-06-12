@@ -2,7 +2,7 @@
 
 Topic : Medical Visual Question Answering
 
-DataSet Used - Slave (A MVQA Dataset)
+DataSet Used - Slake (A MVQA Dataset)
 
 Question feature extraction using Glove
 
